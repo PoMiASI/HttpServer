@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Big Image Host</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; margin: 2rem; line-height: 1.5; }
+      code { background: #f4f4f4; padding: 0.15rem 0.35rem; border-radius: 4px; }
+      a.button { display: inline-block; padding: 0.6rem 0.9rem; border: 1px solid #ccc; border-radius: 6px; text-decoration: none; }
+      ul { margin-top: 0.5rem; }
+    </style>
+  </head>
+  <body>
+    <h1>Big Image Host (nginx)</h1>
+    <p>
+      This container serves static content via nginx. Use it to test browser
+      download concurrency with large images.
+    </p>
+    <h2>Useful links</h2>
+    <ul>
+      <li><a class="button" href="/images/">Browse /images (autoindex)</a></li>
+      <li><a class="button" href="/gallery.html">Open gallery (loads all images)</a></li>
+    </ul>
+    <p>
+      Place images under <code>/usr/share/nginx/html/images</code> inside the container
+      (in this repo, the <code>web/images</code> folder). Rebuild or mount to update.
+    </p>
+  </body>
+  </html>
+
