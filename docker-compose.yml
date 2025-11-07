@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  http-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: http-server
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    volumes:
+    - ./web:/usr/share/nginx/html:ro
+

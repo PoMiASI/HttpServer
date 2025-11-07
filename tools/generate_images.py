@@ -36,26 +36,26 @@ def generate_variants(img):
 
     h, w = img.shape[:2]
 
-    # ✅ 1) Podstawowy zestaw (oryginał + rotacje + odbicia)
+    # 1) Podstawowy zestaw (oryginał + rotacje + odbicia)
     for r in rotate(img):
         variants.extend(flips(r))
 
-    # ✅ 2) Half-swap poziomy (prawa↔lewa)
+    # 2) Half-swap poziomy (prawa↔lewa)
     half_lr = np.concatenate([img[:, w // 2 :], img[:, : w // 2]], axis=1)
     for r in rotate(half_lr):
         variants.extend(flips(r))
 
-    # ✅ 3) Half-swap pionowy (góra↔dół)
+    # 3) Half-swap pionowy (góra↔dół)
     half_ud = np.concatenate([img[h // 2 :], img[: h // 2]], axis=0)
     for r in rotate(half_ud):
         variants.extend(flips(r))
 
-    # ✅ 4) Cyclic shift poziomy (przesunięcie)
+    # 4) Cyclic shift poziomy (przesunięcie)
     shift_x = np.roll(img, w // 4, axis=1)
     for r in rotate(shift_x):
         variants.extend(flips(r))
 
-    # ✅ 5) Cyclic shift pionowy (przesunięcie)
+    # 5) Cyclic shift pionowy (przesunięcie)
     shift_y = np.roll(img, h // 4, axis=0)
     for r in rotate(shift_y):
         variants.extend(flips(r))

@@ -9,10 +9,21 @@ A lightweight static site packaged with nginx so you can host the assets under `
 * `web/images/` static image assets; keep `.gitkeep` if the folder is empty.
 * `tools/generate_images.py` helper script that produces random noise images for load testing.
 * `Dockerfile` builds an nginx image with the static content.
+* `docker-compose.yml` Docker Compose configuration for easy container orchestration.
 * `nginx.conf` nginx virtual host configuration shipped into the image.
 * `requirements.txt` Python dependencies for the image generator script.
 
 ## Quick Start (Docker)
+
+### Using Docker Compose (Recommended)
+
+1. Start the server: `docker-compose up --build`
+2. Visit `http://localhost:8080` for `index.html` or `http://localhost:8080/gallery.html` for the gallery.
+3. Stop the container with `Ctrl+C` or `docker-compose down`.
+
+The `docker-compose.yml` mounts the `web/` directory as a read-only volume, so changes to files in `web/` are reflected immediately without rebuilding the image.
+
+### Using Docker Commands
 
 1. Build the container image: `docker build -t http-server .`
 2. Run it locally: `docker run --rm -p 8080:80 http-server`
@@ -72,7 +83,9 @@ Progress: 1.34 / 2.00 GB
 
 * The Dockerfile starts from `nginx:1.25-alpine`, removes the default site, copies `nginx.conf` and the `web/` folder into the image, and exposes port 80.
 * `nginx.conf` serves files out of `/usr/share/nginx/html`, falls back to `404` when a path is missing, and enables directory listings just for `/images/` so you can inspect generated assets.
+* The `/images/` location block includes `Accept-Ranges: none` header to disable HTTP range requests, ensuring complete file downloads.
 * Because the image is fully static, deployments are repeatable and very fast: you rebuild whenever site files change, then redeploy the container.
+* With `docker-compose.yml`, the `web/` directory is mounted as a volume, allowing live updates without rebuilding the image.
 
 ## Deploying
 
